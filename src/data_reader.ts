@@ -4,7 +4,7 @@
  */
 export default class DataReader {
   public readonly buffer : ArrayBuffer;
-  public pointer : number = 0;
+  private pointer : number = 0;
 
   /**
    * @param buffer The buffer to read from
