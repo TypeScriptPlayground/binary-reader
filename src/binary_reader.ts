@@ -137,7 +137,7 @@ export default class BinaryReader {
   /**
    * This instance function reads a `Float64` (8 bytes).
    * 
-   * @returns The `Float54` read.
+   * @returns The `Float64` read.
    */
   public readFloat64(littleEndian: boolean = true): number {
     return this.read(() => this.bufferView.getFloat64(this.pointer, littleEndian), 8);
