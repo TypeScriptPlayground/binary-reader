@@ -1,47 +1,18 @@
+import DataReader from "./data_reader.ts";
+
 /**
  * This class represents a binary reader. It is similar to DataView but has an internal pointer to
  * automatically pop the bytes that have been already read.
  */
-export default class BinaryReader {
-  private bufferView : DataView;
-  private pointer : number = 0;
-
+export default class BinaryReader extends DataReader {
+  private readonly bufferView : DataViewConstructor;
+  
   /**
    * @param buffer The buffer to read from
    */
-  constructor(buffer : ArrayBufferLike) {
-    this.bufferView = new DataView(buffer);
-  }
-
-  /**
-   * This instance function reads `n` bytes and pushes the pointer accordingly.
-   * 
-   * @param readFunction The function that should be used for reading `n` bytes
-   * @param bytes How many bytes to read
-   * @returns The value read by `readFunction`.
-   */
-  private read<ReadFunction>(readFunction: () => ReadFunction, bytes: number): ReadFunction {
-    const value = readFunction();
-    this.pointer += bytes;
-    return value;
-  }
-
-  /**
-   * This getter returns the entire buffer.
-   * 
-   * @returns The entire buffer.
-   */
-  public get buffer() : ArrayBufferLike {
-    return this.bufferView.buffer;
-  }
-
-  /**
-   * This getter returns the buffer that is left to read.
-   * 
-   * @returns The buffer that is left.
-   */
-  public get bufferLeft() : ArrayBufferLike {
-    return this.bufferView.buffer.slice(this.pointer);
+  constructor(buffer : ArrayBuffer) {
+    super(buffer);
+    this.bufferView = DataView
   }
 
   /**
@@ -50,7 +21,7 @@ export default class BinaryReader {
    * @returns The `Int8` read.
    */
   public readInt8(): number {
-    return this.read(() => this.bufferView.getInt8(this.pointer), 1);
+    return new this.bufferView(this.read(1)).getInt8(0)
   }
 
   /**
@@ -58,8 +29,8 @@ export default class BinaryReader {
    * 
    * @returns The `Uint8` read.
    */
-  public readUint8(): number {
-    return this.read(() => this.bufferView.getUint8(this.pointer), 1);
+  public readUint8() : number {
+    return new this.bufferView(this.read(1)).getUint8(0)
   }
 
   /**
@@ -67,8 +38,8 @@ export default class BinaryReader {
    * 
    * @returns The `Int16` read.
    */
-  public readInt16(littleEndian: boolean = true): number {
-    return this.read(() => this.bufferView.getInt16(this.pointer, littleEndian), 2);
+  public readInt16(littleEndian? : boolean) : number {
+    return new this.bufferView(this.read(2)).getInt16(0, littleEndian)
   }
 
   /**
@@ -76,8 +47,8 @@ export default class BinaryReader {
    * 
    * @returns The `Uint16` read.
    */
-  public readUint16(littleEndian: boolean = true): number {
-    return this.read(() => this.bufferView.getUint16(this.pointer, littleEndian), 2);
+  public readUint16(littleEndian? : boolean) : number {
+    return new this.bufferView(this.read(2)).getUint16(0, littleEndian);
   }
 
   /**
@@ -85,8 +56,8 @@ export default class BinaryReader {
    * 
    * @returns The `Int32` read.
    */
-  public readInt32(littleEndian: boolean = true): number {
-    return this.read(() => this.bufferView.getInt32(this.pointer, littleEndian), 4);
+  public readInt32(littleEndian? : boolean): number {
+    return new this.bufferView(this.read(4)).getInt32(0, littleEndian);
   }
 
   /**
@@ -94,8 +65,8 @@ export default class BinaryReader {
    * 
    * @returns The `Uint32` read.
    */
-  public readUint32(littleEndian: boolean = true): number {
-    return this.read(() => this.bufferView.getUint32(this.pointer, littleEndian), 4);
+  public readUint32(littleEndian? : boolean): number {
+    return new this.bufferView(this.read(4)).getUint32(0, littleEndian);
   }
 
   /**
@@ -103,8 +74,8 @@ export default class BinaryReader {
    * 
    * @returns The `Int64` read.
    */
-  public readInt64(littleEndian: boolean = true): bigint {
-    return this.read(() => this.bufferView.getBigInt64(this.pointer, littleEndian), 8);
+  public readInt64(littleEndian? : boolean) : bigint {
+    return new this.bufferView(this.read(8)).getBigInt64(0, littleEndian);
   }
 
   /**
@@ -112,8 +83,8 @@ export default class BinaryReader {
    * 
    * @returns The `Uint64` read.
    */
-  public readUint64(littleEndian: boolean = true): bigint {
-    return this.read(() => this.bufferView.getBigUint64(this.pointer, littleEndian), 8);
+  public readUint64(littleEndian? : boolean) : bigint {
+    return new this.bufferView(this.read(8)).getBigUint64(0, littleEndian);
   }
 
   /**
@@ -121,8 +92,8 @@ export default class BinaryReader {
    * 
    * @returns The `Float16` read.
    */
-  public readFloat16(littleEndian: boolean = true): number {
-    return this.read(() => this.bufferView.getFloat16(this.pointer, littleEndian), 2);
+  public readFloat16(littleEndian? : boolean) : number {
+    return new this.bufferView(this.read(2)).getFloat16(0, littleEndian);
   }
 
   /**
@@ -130,8 +101,8 @@ export default class BinaryReader {
    * 
    * @returns The `Float32` read.
    */
-  public readFloat32(littleEndian: boolean = true): number {
-    return this.read(() => this.bufferView.getFloat32(this.pointer, littleEndian), 4);
+  public readFloat32(littleEndian? : boolean) : number {
+    return new this.bufferView(this.read(4)).getFloat32(0, littleEndian);
   }
 
   /**
@@ -139,7 +110,7 @@ export default class BinaryReader {
    * 
    * @returns The `Float54` read.
    */
-  public readFloat64(littleEndian: boolean = true): number {
-    return this.read(() => this.bufferView.getFloat64(this.pointer, littleEndian), 8);
+  public readFloat64(littleEndian? : boolean): number {
+    return new this.bufferView(this.read(8)).getFloat64(0, littleEndian);
   }
 }
