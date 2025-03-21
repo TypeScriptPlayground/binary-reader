@@ -1,12 +1,13 @@
 import DataReader from "./data_reader.ts";
 
 /**
- * This class represents a binary reader. It is similar to DataView but has an internal pointer to
- * automatically pop the bytes that have been already read.
+ * This class represents a binary reader.
+ * 
+ * @extends DataReader
  */
 export default class BinaryReader extends DataReader {
   private readonly bufferView : DataViewConstructor;
-  
+
   /**
    * @param buffer The buffer to read from
    */

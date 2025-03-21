@@ -1,3 +1,7 @@
+/**
+ * This class represents a binary reader. It is similar to DataView but has an internal pointer to
+ * automatically pop the bytes that have been already read.
+ */
 export default class DataReader {
   public readonly buffer : ArrayBuffer;
   public pointer : number = 0;
