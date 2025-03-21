@@ -3,14 +3,23 @@
  * automatically pop the bytes that have been already read.
  */
 export default class DataReader {
-  public readonly buffer : ArrayBuffer;
+  private readonly bufferData : ArrayBuffer;
   private pointer : number = 0;
 
   /**
    * @param buffer The buffer to read from
    */
   constructor(buffer : ArrayBuffer) {
-    this.buffer = buffer;
+    this.bufferData = buffer;
+  }
+
+  /**
+   * This getter returns the whole buffer.
+   * 
+   * @returns The whole buffer.
+   */
+  public get buffer() : ArrayBuffer {
+    return this.bufferData;
   }
 
   /**
@@ -19,7 +28,7 @@ export default class DataReader {
    * @returns The buffer that is left.
    */
   public get bufferLeft() : ArrayBuffer {
-    return this.buffer.slice(this.pointer);
+    return this.bufferData.slice(this.pointer);
   }
 
   /**
@@ -29,7 +38,7 @@ export default class DataReader {
    * @returns The value read by `readFunction`.
    */
   public read(bytes : number = 1) : ArrayBuffer {
-    const value = this.buffer.slice(this.pointer, this.pointer + bytes)
+    const value = this.bufferData.slice(this.pointer, this.pointer + bytes)
     this.pointer += bytes;
     return value;
   }
