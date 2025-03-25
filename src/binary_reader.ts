@@ -4,7 +4,7 @@ import DataReader from "./data_reader.ts";
  * This class represents a binary reader.
  * 
  * @example
- * ```
+ * ```ts
  * const dataToRead = new Uint8Array([1,2,3,4]);
  * 
  * const reader = new BinaryReader(dataToRead.buffer);
