@@ -1,13 +1,17 @@
 {
-    "tasks": {
-        "index": "deno run --check -A ./src/index.ts"
-    },
-    "exclude": [
-        "**/*.test.ts"
-    ],
-    "test": {
-        "include": [
-            "**/*.test.ts"
-        ]
-    }
+  "name": "@typescriptplayground/binary-reader",
+  "version": "0.1.0",
+  "license": "./LICENSE",
+  "exports": "./src/index.ts",
+  "tasks": {
+    "index": "deno run --check -A ./src/index.ts"
+  },
+  "exclude": [
+    "**/*.test.ts"
+  ],
+  "test": {
+    "include": [
+      "**/*.test.ts"
+    ]
+  }
 }
