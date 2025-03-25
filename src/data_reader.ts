@@ -1,5 +1,5 @@
 /**
- * This class represents a binary reader. It is similar to DataView but has an internal pointer to
+ * This class represents a data reader. It is similar to DataView but has an internal pointer to
  * automatically pop the bytes that have been already read.
  */
 export default class DataReader {

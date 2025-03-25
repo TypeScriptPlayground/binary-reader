@@ -3,6 +3,16 @@ import DataReader from "./data_reader.ts";
 /**
  * This class represents a binary reader.
  * 
+ * @example
+ * ```
+ * const dataToRead = new Uint8Array([1,2,3,4]);
+ * 
+ * const reader = new BinaryReader(dataToRead.buffer);
+ * 
+ * console.log(reader.read(2)); // ArrayBuffer { [Uint8Contents]: <01 02>, byteLength: 2 }
+ * console.log(reader.bufferLeft.byteLength) // 2
+ * ```
+ * 
  * @extends DataReader
  */
 export default class BinaryReader extends DataReader {
