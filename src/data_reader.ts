@@ -32,6 +32,15 @@ export default class DataReader {
   }
 
   /**
+   * This getter returns if the reader has nothing left to read.
+   * 
+   * @returns If the reader is done reading.
+   */
+  public get done() : boolean {
+    return this.pointer == (this.bufferData.byteLength - 1);
+  }
+
+  /**
    * This instance function reads `n` bytes and pushes the pointer accordingly.
    * 
    * @param bytes How many bytes to read
